@@ -106,16 +106,16 @@ describe('SignUpComponent', () => {
     expect(component.requiresLowercaseValid).toBe(false);
   });
 
-  it('Password must contain firstname or lastname, success', () => {
+  it('Password must contain firstname or lastname (case insensitive), success', () => {
     const f = component.signupForm;
     f.setValue(createFormValues('jordy', 'baart', '', 'welkom01'));
     expect(component.requiresNoForbiddenValues).toBe(true);
   });
 
-  it('Password must contain firstname or lastname otherwise error', () => {
+  it('Password must contain firstname or lastname (case insensitive) otherwise error', () => {
     const f = component.signupForm;
-    f.setValue(createFormValues('welkom', 'baart', '', 'welkom01'));
-    expect(component.requiresNoForbiddenValues).toBe(true);
+    f.setValue(createFormValues('welkom', 'baart', '', 'awelkom01'));
+    expect(component.requiresNoForbiddenValues).toBe(false);
   });
 
   it('Password must consist of 8 characters, success', () => {

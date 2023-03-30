@@ -20,7 +20,7 @@ export class SignUpComponent {
   signupForm = this.formBuilder.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+    email: ['', [Validators.required, Validators.email]], // here you can use also a Validators.pattern (email accepts also domainnames without a dot, like localhost)
     password: ['', [
       Validators.required,
       Validators.minLength(8),
@@ -72,52 +72,52 @@ export class SignUpComponent {
       .pipe(takeUntil(this.destroy))
       .subscribe({
         next: (_) => alert("Successful registration"),
-        error: (err: HttpErrorResponse) => { 
+        error: (err: HttpErrorResponse) => {
           this.isLoading = false;
           console.log(err.error.errors)
         },
         complete: () => this.isLoading = false
-    })
+      })
 
-}
+  }
 
   private get passwordControl(): FormControl {
-  return this.f["password"];
-}
+    return this.f["password"];
+  }
 
   get requiredEmailValid(): boolean {
-  return !this.f['email'].hasError("email");
-}
+    return !this.f['email'].hasError("email");
+  }
 
   get passwordValid(): boolean {
-  return this.passwordControl.errors === null;
-}
+    return this.passwordControl.errors === null;
+  }
 
   get requiredPasswordValid(): boolean {
-  return !this.passwordControl.hasError("required");
-}
+    return !this.passwordControl.hasError("required");
+  }
 
   get requiresMinLengthValid(): boolean {
-  return !this.passwordControl.hasError("minlength");
-}
+    return !this.passwordControl.hasError("minlength");
+  }
 
   get requiresUppercaseValid(): boolean {
-  if (!this.passwordControl || !this.passwordControl.errors || !this.passwordControl.hasError('pattern')) {
-    return true;
+    if (!this.passwordControl || !this.passwordControl.errors || !this.passwordControl.hasError('pattern')) {
+      return true;
+    }
+    const requiredPattern: string = this.passwordControl.errors["pattern"]?.['requiredPattern'];
+    return requiredPattern == this.REG_PATTERN_UPPERCASE.toString();
   }
-  const requiredPattern: string = this.passwordControl.errors["pattern"]?.['requiredPattern'];
-  return requiredPattern == this.REG_PATTERN_UPPERCASE.toString();
-}
 
   get requiresLowercaseValid(): boolean {
-  if (!this.passwordControl || !this.passwordControl.errors || !this.passwordControl.hasError('pattern')) {
-    return true;
+    if (!this.passwordControl || !this.passwordControl.errors || !this.passwordControl.hasError('pattern')) {
+      return true;
+    }
+    const requiredPattern: string = this.passwordControl.errors["pattern"]?.['requiredPattern'];
+    return requiredPattern == this.REG_PATTERN_LOWERCASE.toString();
   }
-  const requiredPattern: string = this.passwordControl.errors["pattern"]?.['requiredPattern'];
-  return requiredPattern == this.REG_PATTERN_LOWERCASE.toString();
-}
 
   get requiresNoForbiddenValues(): boolean {
-  return !this.passwordControl.hasError("requiresNoForbiddenValues");
-}
+    return !this.passwordControl.hasError("requiresNoForbiddenValues");
+  }
 }

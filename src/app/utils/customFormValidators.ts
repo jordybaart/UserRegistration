@@ -44,10 +44,10 @@ export default class CustomFormValidators {
      * @param targetControlsNames FormConntrol names with the forbidden words. eg. 'firstName', 'lastName' 
      * @returns all forbidden words that are found in sourceControlValue
      */
-    private static getForbiddenWords(controls: AbstractControl<any, any>, sourceControlValue: any, targetControlsNames: string[]) {
+    private static getForbiddenWords(controls: AbstractControl<any, any>, sourceControlValue: string, targetControlsNames: string[]) {
         return targetControlsNames.map(targetControlName => {
             const targetControlValue = (controls.get(targetControlName)?.value as string).toLowerCase();
-            const isEqualValue = targetControlValue !== '' && sourceControlValue === targetControlValue;
+            const isEqualValue = targetControlValue !== '' && sourceControlValue.includes(targetControlValue);
             return isEqualValue ? targetControlValue : (undefined as any) as string;
         }).filter(x => !!x);
     }

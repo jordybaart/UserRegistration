@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "email-validation-tutorial": {
+    "signup": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/email-validation-tutorial",
+            "outputPath": "dist/signup",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "email-validation-tutorial:build:production"
+              "browserTarget": "signup:build:production"
             },
             "development": {
-              "browserTarget": "email-validation-tutorial:build:development"
+              "browserTarget": "signup:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "email-validation-tutorial:build"
+            "browserTarget": "signup:build"
           }
         },
         "test": {

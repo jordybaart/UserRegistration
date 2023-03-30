@@ -26,12 +26,11 @@
         <!--Email Input-->
         <div class="form-group">
           <label>E-mail:</label>
-          <input type="text" formControlName="email" class="form-control"
-              [ngClass]="{ 'is-invalid': hasError(f['email']) }" placeholder="email@fedex.nl" />
-            <div *ngIf="f['email'] && f['email'].errors && hasError(f['email'])" class="invalid-feedback">
-              <div *ngIf="f['email'].errors['required']">E-mail is required</div>
-              <div *ngIf="requiredEmailValid">E-mail is invalid</div>
-            </div>
+          <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': hasError(f['email']) }" placeholder="email@fedex.nl" />
+            <div *ngIf="f['email'] && (hasError(f['email']) || requiredEmailValid)" class="invalid-feedback">
+              <div *ngIf="f['email'].errors && f['email'].errors['required']">E-mail is required</div>
+              <div *ngIf="!requiredEmailValid">E-mail is invalid</div>
+            </div>   
         </div>
         <!--Password Input-->
         <div class="form-group">
